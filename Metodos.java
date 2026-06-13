@@ -396,10 +396,6 @@ public class Metodos {
             }
 
         } while (linha < 0 || linha > 9 || coluna < 0 || coluna > 9);
-        
-        System.out.println("Digite uma coordenada para realizar um ataque");
-        linha = leitura.nextInt();
-        coluna = leitura.nextInt();
 
         if (tabuleiro[linha][coluna].equals("N")) {
             System.out.println("Acertou um navio!");
