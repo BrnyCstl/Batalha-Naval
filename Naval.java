@@ -28,6 +28,9 @@ public class Naval {
             Metodos.ImprimirMatriz(tabuleiro);
         }
 
+        System.out.println(" ");
+        System.out.println("Iniciando o jogo! O atacante tem 30 tentativas para acertar os navios do criador.");
+
         Metodos.ImprimirMatriz2(tabuleiro2);
 
         for (int i = 1; i < 31; i++ ) {
@@ -40,7 +43,7 @@ public class Naval {
             if (vitoria == true) {
                 System.out.println("Parabéns Atacante, você venceu!");
                 break;
-            }
+            }else { System.out.println("Tentativa " + i + "/30"); }
 
             if (i == 30) {
                 System.out.println("Tentativas do atacante acabaram, o Criador venceu!");

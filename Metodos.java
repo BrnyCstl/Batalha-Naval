@@ -3,28 +3,53 @@ import java.util.Scanner;
 public class Metodos {
 
     public static String[][] InicializarMatriz() {
-        String[][] tabuleiro = new String[10][10];
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        String[][] tabuleiro = new String[11][11];
+
+        for (int i = 1; i < 11; i++) {
+            for (int j = 1; j < 11; j++) {
                 tabuleiro[i][j] = "~";
+            }
+        }
+
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 11; j++) {
+                tabuleiro[i][j] = String.valueOf(j);
+            }
+        }
+
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 1; j++) {
+                tabuleiro[i][j] = String.valueOf(i);
             }
         }
         return tabuleiro;
     }
 
     public static String[][] InicializarMatriz2() {
-        String[][] tabuleiro2 = new String[10][10];
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        String[][] tabuleiro2 = new String[11][11];
+        for (int i = 1; i < 11; i++) {
+            for (int j = 1; j < 11  ; j++) {
                 tabuleiro2[i][j] = "~";
+            }
+        }
+
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 11; j++) {
+                tabuleiro2[i][j] = String.valueOf(j);
+            }
+        }
+
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 1; j++) {
+                tabuleiro2[i][j] = String.valueOf(i);
             }
         }
         return tabuleiro2;
     }
 
     public static String[][] ImprimirMatriz2(String[][] tabuleiro2) {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
                 System.out.print(tabuleiro2[i][j] + " ");
             }
             System.out.println();
@@ -33,8 +58,8 @@ public class Metodos {
     }
 
     public static void ImprimirMatriz(String[][] tabuleiro) {
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
                 System.out.print(tabuleiro[i][j] + " ");
             }
             System.out.println();
@@ -50,24 +75,24 @@ public class Metodos {
 
             do {
                 System.out.println("Digite as coordenadas para posicionar o " + Navio + ":");
-
+                System.out.print("Linha: ");
                 while (!Leitura.hasNextInt()) {
                     System.out.println("Linha inválida! Digite um número:");
                     Leitura.next();
                 }
                 linha = Leitura.nextInt();
-
+                System.out.print("Coluna: ");
                 while (!Leitura.hasNextInt()) {
                     System.out.println("Coluna inválida! Digite um número:");
                     Leitura.next();
                 }
                 coluna = Leitura.nextInt();
 
-                if (linha < 0 || linha > 9 || coluna < 0 || coluna > 9) {
-                    System.out.println("Coordenadas inválidas! Digite valores entre 0 e 9.");
+                if (linha < 1 || linha > 10 || coluna < 1 || coluna > 10) {
+                    System.out.println("Coordenadas inválidas! Digite valores entre 1 e 10.");
                 }
 
-            } while (linha < 0 || linha > 9 || coluna < 0 || coluna > 9);
+            } while (linha < 1 || linha > 10 || coluna < 1 || coluna > 10);
 
             if (navio.equalsIgnoreCase("Bote")) {
 
@@ -77,9 +102,15 @@ public class Metodos {
 
             } else {
 
-                System.out.println(Navio + " possui " + tamanho
-                        + " de tamanho, deseja posiciona-lo para qual direção? (Digite a letra correspondente a direção: N, S, L, O, NE, SE, NO, SO)");
-                orientacao = Leitura.next();
+                do{
+                    System.out.println("Digite a orientação para posicionar o " + Navio + ": (Digite a letra correspondente a direção: N, S, L, O, NE, SE, NO, SO)");
+                    orientacao = Leitura.next();
+
+                    if (!orientacao.equalsIgnoreCase("N") && !orientacao.equalsIgnoreCase("S") && !orientacao.equalsIgnoreCase("L") && !orientacao.equalsIgnoreCase("O") && !orientacao.equalsIgnoreCase("NE") && !orientacao.equalsIgnoreCase("SE") && !orientacao.equalsIgnoreCase("NO") && !orientacao.equalsIgnoreCase("SO")) {
+                        System.out.println("Orientação inválida! Digite uma das seguintes opções: N, S, L, O, NE, SE, NO, SO.");
+                    }
+
+                } while (!orientacao.equalsIgnoreCase("N") && !orientacao.equalsIgnoreCase("S") && !orientacao.equalsIgnoreCase("L") && !orientacao.equalsIgnoreCase("O") && !orientacao.equalsIgnoreCase("NE") && !orientacao.equalsIgnoreCase("SE") && !orientacao.equalsIgnoreCase("NO") && !orientacao.equalsIgnoreCase("SO"));
 
             }
             verificacao = Metodos.VerificarNavio(navio, tabuleiro, orientacao, linha, coluna);
@@ -109,40 +140,40 @@ public class Metodos {
 
         if (navio.equalsIgnoreCase("Porta-Aviões")) {
 
-            if (linha < 0 || linha > 9 || coluna < 0 || coluna > 9) {
-                System.out.println("Coordenadas fora do tabuleiro. Use valores de 0 a 9.");
+            if (linha < 1 || linha > 10 || coluna < 1 || coluna > 10) {
+                System.out.println("Coordenadas fora do tabuleiro. Use valores de 1 a 10.");
                 return false;
             }
 
-            if (orientacao.equalsIgnoreCase("N") && linha < 3) {
+            if (orientacao.equalsIgnoreCase("N") && linha < 4) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("S") && linha > 6) {
+            } else if (orientacao.equalsIgnoreCase("S") && linha > 7) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("O") && coluna < 3) {
+            } else if (orientacao.equalsIgnoreCase("O") && coluna < 4) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("L") && coluna > 6) {
+            } else if (orientacao.equalsIgnoreCase("L") && coluna > 7) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("NE") && (linha < 3 || coluna > 6)) {
+            } else if (orientacao.equalsIgnoreCase("NE") && (linha < 4 || coluna > 7)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("SE") && (linha > 6 || coluna > 6)) {
+            } else if (orientacao.equalsIgnoreCase("SE") && (linha > 7 || coluna > 7)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("NO") && (linha < 3 || coluna < 3)) {
+            } else if (orientacao.equalsIgnoreCase("NO") && (linha < 4 || coluna < 4)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("SO") && (linha > 6 || coluna < 3)) {
+            } else if (orientacao.equalsIgnoreCase("SO") && (linha > 7 || coluna < 4)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
@@ -156,20 +187,20 @@ public class Metodos {
                 return false;
             }
 
-            if (linha < 0 || linha > 9 || coluna < 0 || coluna > 9) {
-                System.out.println("Coordenadas fora do tabuleiro. Use valores de 0 a 9.");
+            if (linha < 1 || linha > 10 || coluna < 1 || coluna > 10) {
+                System.out.println("Coordenadas fora do tabuleiro. Use valores de 1 a 10.");
                 return false;
             }
 
-            if (orientacao.equalsIgnoreCase("N") && linha < 2) {
+            if (orientacao.equalsIgnoreCase("N") && linha < 3) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("S") && linha > 7) {
+            } else if (orientacao.equalsIgnoreCase("S") && linha > 8) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("O") && coluna < 2) {
+            } else if (orientacao.equalsIgnoreCase("O") && coluna < 3) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
@@ -177,19 +208,19 @@ public class Metodos {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("NE") && (linha < 2 || coluna > 7)) {
+            } else if (orientacao.equalsIgnoreCase("NE") && (linha < 3 || coluna > 8)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("SE") && (linha > 7 || coluna > 7)) {
+            } else if (orientacao.equalsIgnoreCase("SE") && (linha > 8 || coluna > 8)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("NO") && (linha < 2 || coluna < 2)) {
+            } else if (orientacao.equalsIgnoreCase("NO") && (linha < 3 || coluna < 3)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("SO") && (linha > 7 || coluna < 2)) {
+            } else if (orientacao.equalsIgnoreCase("SO") && (linha > 8 || coluna < 3)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
@@ -209,35 +240,35 @@ public class Metodos {
                 return false;
             }
 
-            if (orientacao.equalsIgnoreCase("N") && linha < 1) {
+            if (orientacao.equalsIgnoreCase("N") && linha < 2) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("S") && linha > 8) {
+            } else if (orientacao.equalsIgnoreCase("S") && linha > 9) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("O") && coluna < 1) {
+            } else if (orientacao.equalsIgnoreCase("O") && coluna < 2) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("L") && coluna > 8) {
+            } else if (orientacao.equalsIgnoreCase("L") && coluna > 9) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("NE") && (linha < 1 || coluna > 8)) {
+            } else if (orientacao.equalsIgnoreCase("NE") && (linha < 2 || coluna > 9)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("SE") && (linha > 8 || coluna > 8)) {
+            } else if (orientacao.equalsIgnoreCase("SE") && (linha > 9 || coluna > 9)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("NO") && (linha < 1 || coluna < 1)) {
+            } else if (orientacao.equalsIgnoreCase("NO") && (linha < 2 || coluna < 2)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
-            } else if (orientacao.equalsIgnoreCase("SO") && (linha > 8 || coluna < 1)) {
+            } else if (orientacao.equalsIgnoreCase("SO") && (linha > 9 || coluna < 2)) {
                 System.out.println(
                         "Não é possível posicionar o navio nessa direção, pois ultrapassa os limites do tabuleiro.");
                 return false;
@@ -378,32 +409,33 @@ public class Metodos {
 
         do{
             System.out.println("Digite as coordenadas para realizar um ataque:");
-
+            System.out.print("Linha: ");
             while (!leitura.hasNextInt()) {
                 System.out.println("Linha inválida! Digite um número:");
                 leitura.next();
             }
             linha = leitura.nextInt();
 
+            System.out.print("Coluna: ");
             while (!leitura.hasNextInt()) {
                 System.out.println("Coluna inválida! Digite um número:");
                 leitura.next();
             }
             coluna = leitura.nextInt();
 
-            if (linha < 0 || linha > 9 || coluna < 0 || coluna > 9) {
-                System.out.println("Coordenadas inválidas! Digite valores entre 0 e 9.");
+            if (linha < 0 || linha > 10 || coluna < 0 || coluna > 10) {
+                System.out.println("Coordenadas inválidas! Digite valores entre 0 e 10.");
             }
 
-        } while (linha < 0 || linha > 9 || coluna < 0 || coluna > 9);
+        } while (linha < 0 || linha > 10 || coluna < 0 || coluna > 10);
 
-        if (tabuleiro[linha][coluna].equals("N")) {
+        if (tabuleiro[linha][coluna].equals("N") && !tabuleiro2[linha][coluna].equals("X")) {
             System.out.println("Acertou um navio!");
             tabuleiro2[linha][coluna] = "X";
-        } else if (tabuleiro[linha][coluna].equals("~")) {
+        } else if (tabuleiro[linha][coluna].equals("~") && !tabuleiro2[linha][coluna].equals("O")) {
             System.out.println("Água!");
             tabuleiro2[linha][coluna] = "O";
-        } else {
+        } else if (tabuleiro2[linha][coluna].equals("X") || tabuleiro2[linha][coluna].equals("O")) {
             System.out.println("Essa posição já foi atacada. Tente outra coordenada.");
         }
         return tabuleiro2;
